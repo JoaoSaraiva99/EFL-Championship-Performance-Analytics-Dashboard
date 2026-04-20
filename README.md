@@ -142,3 +142,213 @@ DAX: Goal Difference = SUM('England 2 FULL'[Goals]) - SUM('England 2 FULL'[Goals
 A new score column was created for tooltip purposes by concatenating goals scored and goals conceded:
 
 DAX: Score = FORMAT('England 2 FULL'[Goals], "0") & "-" & FORMAT('England 2 FULL'[Goals Conceded], "0")
+
+Example:
+- **4-1**
+
+---
+## Dashboard Structure
+
+To improve navigation, a **homepage** was created with three main buttons:
+
+- **Team Stats**
+- **Season Stats**
+- **Referee Stats**
+
+Each button redirects the user to its respective analysis page.
+
+Additionally, every page includes a smaller **return button** in the upper-right corner that redirects back to the homepage. This smaller button was intentionally chosen to preserve space for the main visuals and overall page design.
+
+---
+
+## Team Stats
+
+The **Team Stats** page was designed to support detailed analysis of a selected club.
+
+### Filters
+
+Two slicers were included:
+
+- a **Team slicer**, restricted to a single team selection,
+- a **Time slicer**, allowing the user to define the analysis window.
+
+### Visuals
+
+This page includes:
+
+- a **line chart** showing the evolution of:
+  - goals scored,
+  - goals conceded;
+
+- a **100% stacked chart** showing the proportion between:
+  - goals scored,
+  - goals conceded;
+
+- a **pie chart** displaying the distribution of:
+  - wins,
+  - draws,
+  - losses;
+
+- a **Top 5 opponents chart** for:
+  - teams against whom the selected team scored the most goals;
+
+- a **Top 5 opponents chart** for:
+  - teams against whom the selected team conceded the most goals.
+
+### Summary Card
+
+A summary card was created to display key team indicators:
+
+- total shots,
+- shots on target,
+- red cards,
+- yellow cards.
+
+---
+
+## Season Stats
+
+The **Season Stats** page was designed to provide a broader competition-level view by season.
+
+### Filter
+
+This page includes a **Season slicer**.
+
+### Main League Table
+
+The first table presents, for each team:
+
+- team name,
+- goals scored,
+- goals conceded,
+- goal difference,
+- points.
+
+Teams are sorted from **highest to lowest points**, reproducing a realistic league table structure.
+
+This table also includes **embedded bar visuals inside cells**, improving the visual comparison of performance across teams.
+
+### Match Results Table
+
+A second table was created to display:
+
+- date,
+- team,
+- result,
+
+sorted from **most recent to oldest**.
+
+This table is interactive: selecting a team filters the remaining visuals accordingly.
+
+### Tooltip Page
+
+A dedicated **tooltip page** was created and linked to the first season table.
+
+This tooltip includes:
+
+- a **team card**,
+- a table with the **5 most recent matches**,
+- opponent,
+- result,
+- score in `Goals-Goals Conceded` format.
+
+This feature allows users to hover over a team row and immediately inspect its most recent performances without occupying additional space in the main layout.
+
+---
+
+## Referee Stats
+
+The **Referee Stats** page was designed to analyse referee behaviour and disciplinary tendencies.
+
+### Filters
+
+This page includes:
+
+- a **Referee slicer**,
+- a **Time slicer**.
+
+### Main Cards
+
+A card was created to show the total number of officiated matches using:
+
+DAX: Number of Games Refereed = COUNTROWS('England 2 FULL')
+
+Additional cards were also created for:
+
+- total yellow cards,
+- total red cards.
+
+### Referee Measures
+
+To reduce bias caused by unequal sample sizes across teams, the referee analysis was based on **average cards per match**, rather than raw totals alone.
+
+The following measures were created:
+
+DAX:  
+Number of Games Refereed = COUNTROWS('England 2 FULL')
+
+DAX:  
+Total Red Cards = SUM('England 2 FULL'[Red Cards])
+
+DAX:  
+Matches by Team = COUNTROWS('England 2 FULL')
+
+DAX:  
+Average Red Cards = DIVIDE([Total Red Cards], [Matches by Team])
+
+DAX:  
+Total Yellow Cards = SUM('England 2 FULL'[Yellow Cards])
+
+DAX:  
+Average Yellow Cards = DIVIDE([Total Yellow Cards], [Matches by Team])
+
+DAX:  
+Average Total Cards = [Average Yellow Cards] + [Average Red Cards]
+
+DAX:  
+Eligible Team = IF([Matches by Team] >= 3, 1, 0)
+
+The `Eligible Team` measure was created to avoid misleading comparisons based on very small samples.
+
+### Main Visuals
+
+Using these measures, three main bar charts were created:
+
+- **Top 5 clubs by average red cards**
+- **Top 5 clubs by average yellow cards**
+- **Top 5 clubs by average total cards**
+
+The page also includes:
+
+- a **stacked chart** showing the distribution between yellow and red cards,
+- a **line chart over time** displaying:
+  - number of games refereed,
+  - yellow cards,
+  - red cards.
+
+This makes it possible to analyse both overall disciplinary patterns and referee behaviour over time.
+
+---
+
+## Limitations and Future Improvements
+
+Although the dashboard already provides a strong level of analysis across teams, seasons, and referees, several improvements could be implemented with access to richer datasets.
+
+Most detailed football data sources are currently paid and are typically more accessible in professional contexts. Ideally, it would be possible to build an additional **player analytics page** if player-level data were available by match, month, or division.
+
+This would open the door to more advanced analyses such as:
+
+- player performance against specific clubs,
+- player evolution across seasons,
+- comparisons across divisions,
+- more detailed individual trends over time.
+
+Because this project focuses on the **English second division**, the availability of complete and detailed data is more limited than for top-tier leagues. Even so, the final dashboard demonstrates a solid analytical and interactive framework.
+
+---
+
+## Dashboard Walkthrough
+
+In the video below, I present the dashboard, explain the reasoning behind each analytical page, and demonstrate the main interactive features and insights.
+
+<!-- Add video link or embedded preview here -->
