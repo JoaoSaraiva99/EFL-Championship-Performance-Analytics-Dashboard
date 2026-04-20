@@ -283,30 +283,14 @@ Additional cards were also created for:
 To reduce bias caused by unequal sample sizes across teams, the referee analysis was based on **average cards per match**, rather than raw totals alone.
 
 The following measures were created:
-
-DAX:  
-Number of Games Refereed = COUNTROWS('England 2 FULL')
-
-DAX:  
-Total Red Cards = SUM('England 2 FULL'[Red Cards])
-
-DAX:  
-Matches by Team = COUNTROWS('England 2 FULL')
-
-DAX:  
-Average Red Cards = DIVIDE([Total Red Cards], [Matches by Team])
-
-DAX:  
-Total Yellow Cards = SUM('England 2 FULL'[Yellow Cards])
-
-DAX:  
-Average Yellow Cards = DIVIDE([Total Yellow Cards], [Matches by Team])
-
-DAX:  
-Average Total Cards = [Average Yellow Cards] + [Average Red Cards]
-
-DAX:  
-Eligible Team = IF([Matches by Team] >= 3, 1, 0)
+- DAX: Number of Games Refereed = COUNTROWS('England 2 FULL')
+- DAX: Total Red Cards = SUM('England 2 FULL'[Red Cards])
+- DAX: Matches by Team = COUNTROWS('England 2 FULL')
+- DAX: Average Red Cards = DIVIDE([Total Red Cards], [Matches by Team])
+- DAX: Total Yellow Cards = SUM('England 2 FULL'[Yellow Cards])
+- DAX: Average Yellow Cards = DIVIDE([Total Yellow Cards], [Matches by Team])
+- DAX: Average Total Cards = [Average Yellow Cards] + [Average Red Cards]
+- DAX: Eligible Team = IF([Matches by Team] >= 3, 1, 0)
 
 The `Eligible Team` measure was created to avoid misleading comparisons based on very small samples.
 
@@ -352,3 +336,5 @@ Because this project focuses on the **English second division**, the availabilit
 In the video below, I present the dashboard, explain the reasoning behind each analytical page, and demonstrate the main interactive features and insights.
 
 <!-- Add video link or embedded preview here -->
+
+You can download the dashboard here: [Download Dashboard](https://github.com/JoaoSaraiva99/EFL-Championship-Performance-Analytics-Dashboard/blob/main/Second%20League%20Dashboard.pbix)
