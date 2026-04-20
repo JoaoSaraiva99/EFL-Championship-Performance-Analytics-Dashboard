@@ -78,3 +78,67 @@ The AWAY table was reshaped to reflect the away team perspective:
 - `A Red` → `Red Cards`
 
 All home-side performance variables were removed from this query.
+
+### Result Reframing
+A key issue in the original data is that both `FT Result` and `HT Result` are recorded from the **home team perspective**.
+
+For the AWAY table, this had to be inverted using conditional logic:
+
+powerquery
+if [FT Result] = "H" then "A" 
+else if [FT Result] = "A" then "H" 
+else "D"
+
+The same logic was applied to `HT Result`.
+
+This ensured that:
+
+- a home win becomes a loss from the away team perspective,
+- an away win becomes a win from the away team perspective,
+- draws remain unchanged.
+
+### Final Analytical Table
+
+After both tables were standardised, they were appended into a single dataset.
+
+This final structure ensured that:
+
+- both tables shared the same final columns,
+- each row represented **one team in one match**,
+- home and away performances could be analysed together.
+
+---
+
+## Derived Columns and Measures
+
+### Results Column
+
+A new categorical result variable was created in **W / D / L** format:
+
+- **W** – Win  
+- **D** – Draw  
+- **L** – Loss  
+
+This column was used throughout the dashboard for result distribution and recent form analysis.
+
+### Results Points
+
+A new variable called **Results Points** was created based on the result logic:
+
+- **Win** → 3 points  
+- **Draw** → 1 point  
+- **Loss** → 0 points  
+
+The purpose of this variable was to make season-level analysis more intuitive and to reproduce the logic of a real football league table.
+
+### Goal Difference
+
+A dedicated measure was created to calculate goal difference:
+
+DAX: Goal Difference = SUM('England 2 FULL'[Goals]) - SUM('England 2 FULL'[Goals Conceded])
+
+### Score Column
+
+A new score column was created for tooltip purposes by concatenating goals scored and goals conceded:
+
+DAX: Score = FORMAT('England 2 FULL'[Goals], "0") & "-" & FORMAT('England 2 FULL'[Goals Conceded], "0")
