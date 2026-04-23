@@ -335,6 +335,6 @@ Because this project focuses on the **English second division**, the availabilit
 
 In the video below, I present the dashboard, explain the reasoning behind each analytical page, and demonstrate the main interactive features and insights.
 
-Watch the full video presentation here: [YouTube Video](https://www.youtube.com/watch?v=l76A1BJoFUY)
+[![Watch the dashboard walkthrough](https://img.youtube.com/vi/l76A1BJoFUY/maxresdefault.jpg)](https://www.youtube.com/watch?v=l76A1BJoFUY)
 
 You can download the dashboard here: [Download Dashboard](https://github.com/JoaoSaraiva99/EFL-Championship-Performance-Analytics-Dashboard/blob/main/Second%20League%20Dashboard.pbix)
